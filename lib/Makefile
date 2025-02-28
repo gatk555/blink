@@ -5,7 +5,7 @@ CC=gcc $(CFLAGS)
 ifeq ($(shell uname -s), Darwin)
   SHFLAG=-dynamic
 else
-  SHFLAG=-shared
+  SHFLAG=-shared -Bsymbolic
 endif
 
 all: $(PROGS)
@@ -23,7 +23,7 @@ GLIB_LIBS := $(shell pkg-config --libs glib-2.0)
 	ar rs $@ $^
 
 ../libblink.so: sim.o panel.o pixbuf.o blink_fps.o
-	ld $(SHFLAG) -Bsymbolic -o $@ $^ $(GTK_LIBS)
+	ld $(SHFLAG) -o $@ $^ $(GTK_LIBS) -lc
 
 # Make stand-alone UI test program.
 
