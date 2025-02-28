@@ -6,4 +6,5 @@ typedef void GtkImage;
 typedef void GtkStack;
 typedef void GtkToggleButton;
 typedef void GtkSpinButton;
+typedef void GtkComboBox;
 

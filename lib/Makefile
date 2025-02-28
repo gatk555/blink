@@ -1,4 +1,6 @@
 PROGS=../libblink.so ../libblink_static.a
+CFLAGS=-O3 -g
+CC=gcc $(CFLAGS)
 
 all: $(PROGS)
 
@@ -20,19 +22,19 @@ GLIB_LIBS := $(shell pkg-config --libs glib-2.0)
 # Make stand-alone UI test program.
 
 panel: panel_main.o pixbuf.o
-	gcc -Wall -DMAIN -o panel panel_main.o pixbuf.o $(GTK_LIBS) 
+	$(CC) -Wall -DMAIN -o panel panel_main.o pixbuf.o $(GTK_LIBS) 
 
 panel_main.o: panel_main.c panel.h
-	gcc -Wall -DMAIN -c  -o panel_main.o $(GTK_INCS) $<
+	$(CC) -Wall -DMAIN -c  -o panel_main.o $(GTK_INCS) $<
 
 panel.o: panel.c sim.h panel.h
-	gcc -Wall -c -fPIC -DWINDOW_HEADING -o panel.o $(GTK_INCS) $<
+	$(CC) -Wall -c -fPIC -DWINDOW_HEADING -o panel.o $(GTK_INCS) $<
 
 pixbuf.o: pixbuf.c panel.h
-	gcc -Wall -c -fPIC -o pixbuf.o $(GTK_INCS) $<
+	$(CC) -Wall -c -fPIC -o pixbuf.o $(GTK_INCS) $<
 
 sim.o: sim.c sim.h panel.h
-	gcc -Wall -c -fPIC -o sim.o $(GLIB_INCS) $<
+	$(CC) -Wall -c -fPIC -o sim.o $(GLIB_INCS) $<
 
 clean:
 	rm -f $(PROGS) *.o *~ core

@@ -1,0 +1,34 @@
+name: Build others
+on:
+  workflow_dispatch:
+
+jobs:
+  build-macos-x86_64:
+    runs-on: macos-13
+    steps:
+      - name: Install Dependencies
+        run: |
+          brew install make gtk+3
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          cd lib
+          make
+  build-win_msys:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: ucrt64
+          update: true
+          install: >
+            base-devel
+            mingw-w64-ucrt-x86_64-toolchain
+            mingw-w64-ucrt-x86_64-gtk3
+      - name: Build
+        run: |
+          cd lib
+          make
