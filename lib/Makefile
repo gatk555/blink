@@ -2,10 +2,13 @@ PROGS=../libblink.so ../libblink_static.a
 CFLAGS=-O3 -g
 CC=gcc $(CFLAGS)
 
-ifeq ($(shell uname -s), Darwin)
+SHFLAG=-shared -Bsymbolic
+LD=ld
+ifeq ($(OS), Windows_NT))
+  XLIBS=ucrt.lib
+else ifeq ($(shell uname -s), Darwin)
+  LD=ld.ldd
   SHFLAG=-dynamic
-else
-  SHFLAG=-shared -Bsymbolic
 endif
 
 all: $(PROGS)
@@ -23,7 +26,7 @@ GLIB_LIBS := $(shell pkg-config --libs glib-2.0)
 	ar rs $@ $^
 
 ../libblink.so: sim.o panel.o pixbuf.o blink_fps.o
-	ld $(SHFLAG) -o $@ $^ $(GTK_LIBS) -lc
+	$(LD) $(SHFLAG) -o $@ $^ $(GTK_LIBS) $(XLIBS)
 
 # Make stand-alone UI test program.
 
