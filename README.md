@@ -1,7 +1,7 @@
 blink - a small library to add a control panel to an electronics simulation.
 -----
 
-_blink_ is a small library, based on Gtk that can be used to add a control
+_blink_ is a small library, based on Gtk, that can be used to add a control
 panel to an electronics simulation.  So far it has been used only on Linux,
 but as it uses only C, Glib and Gtk libraries, it should be buildable for other environments.
 
@@ -20,6 +20,6 @@ The source code is in the file simavr/simavr/sim/panel.c.
 
 Installation
 ------------
-Just run `make` in the lib subdirectroy to build the library.
+Just run `make` in the lib subdirectory to build the library.
 The interface definitions are in the file sim.h.
 
